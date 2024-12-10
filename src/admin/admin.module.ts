@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { AdminJS } = require('adminjs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { Database, Resource, getModelByName } = require('@adminjs/prisma');
+
 const DEFAULT_ADMIN = {
   email: 'admin@example.com',
   password: 'password',
@@ -18,11 +23,6 @@ const authenticate = async (email: string, password: string) => {
 })
 export class AdminModule {
   static async forRootAsync() {
-    const { Database, Resource, getModelByName } = await import(
-      '@adminjs/prisma'
-    );
-
-    const { AdminJS } = await import('adminjs');
     const adminModule = await import('@adminjs/nestjs');
     const prismaService = new PrismaService();
 
